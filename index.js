@@ -1,8 +1,8 @@
 const fetch = require('node-fetch');
 const core = require('@actions/core');
 
-const token = core.getInput('netlify-token', {required: true})
-const siteId = core.getInput('netlify-site-id', {required: true});
+const token =  process.env.NETLIFY_TOKEN || core.getInput('netlify-token', {required: true});
+const siteId =  process.env.NETLIFY_SITE_ID || core.getInput('netlify-site-id', {required: true});
 
 const startDate = new Date();
 startDate.setHours(0);
