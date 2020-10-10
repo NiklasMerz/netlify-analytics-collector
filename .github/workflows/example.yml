@@ -19,3 +19,19 @@ jobs:
       with:
         name: exports
         path: '*.csv'
+  sheet-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ./.
+      with:
+        netlify-token: ${{ secrets.NETLIFY_TOKEN }}
+        netlify-site-id: ${{ secrets.NETLIFY_SITE }}
+    - uses: canonical-web-and-design/csv-to-google-spreadsheet@master
+      with:
+        csv_path: pageviews.csv
+        spreadsheet_id: ${{ secrets.google_spreadsheet_id }}
+        worksheet: 0
+        append_content: true
+        google_service_account_email: ${{ secrets.google_service_account_email }}
+        google_service_account_private_key: ${{ secrets.google_service_account_private_key }}
