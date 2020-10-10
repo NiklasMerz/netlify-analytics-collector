@@ -1,0 +1,18 @@
+{
+  "name": "netlify-analytics-collector",
+  "version": "0.0.1",
+  "description": "A simple NodeJs application which saves netlify analytics to a CSV file",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Niklas Merz",
+  "license": "MIT"
+}
