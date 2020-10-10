@@ -1,6 +1,9 @@
 name: 'Netlify Analytics Collector'
 description: 'Fetches netlify analytics and uploads it to artifacts.'
 author: 'NiklasMerz'
+branding:
+    icon: 'briefcase'  
+    color: 'blue'
 inputs: 
   netlify-site-id:
     description: 'You can get the id for your netlify site by looking at the devtools'
