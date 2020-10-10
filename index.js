@@ -1,8 +1,8 @@
 const fetch = require('node-fetch');
 const core = require('@actions/core');
 
-const token =  process.env.NETLIFY_TOKEN || core.getInput('netlify-token', {required: true});
-const siteId =  process.env.NETLIFY_SITE_ID || core.getInput('netlify-site-id', {required: true});
+const token = process.env.NETLIFY_TOKEN || core.getInput('netlify-token', { required: true });
+const siteId = process.env.NETLIFY_SITE_ID || core.getInput('netlify-site-id', { required: true });
 
 const startDate = new Date();
 startDate.setHours(0);
@@ -35,6 +35,10 @@ if (timezone < 0) {
 async function start() {
     getMetric("pageviews");
     getMetric("visitors");
+    getMetric("pages");
+    getMetric("bandwidth");
+    getMetric("not_found");
+    getMetric("sources");
 }
 
 async function getMetric(metric) {
@@ -51,33 +55,50 @@ async function getMetric(metric) {
             "method": "GET",
             "mode": "cors"
         });
-    
+
         const response = await res.json();
         writeToCSV(response.data, metric);
-    } catch(e) {
-        console.error("Request failed". url);
+    } catch (e) {
+        console.error("Request failed".url);
         console.error(e);
     }
 }
 
 function writeToCSV(data, metric) {
     const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
+    let header = [];
+    try {
+        if (data[0] instanceof Array) {
+            header = [
+                { id: 'date', title: 'date' },
+                { id: 'timestamp', title: 'timestamp' },
+                { id: 'value', title: 'count' },
+            ];
+        } else {
+            for (const key in data[0]) {
+                header.push({ id: key, title: key });
+            }
+        }
+    } catch (e) {
+        console.error("Element parsing failed", e);
+    }
+
     const csvWriter = createCsvWriter({
         path: metric + '.csv',
-        header: [
-            { id: 'date', title: 'Date' },
-            { id: 'timestamp', title: 'Timestamp' },
-            { id: 'value', title: 'Count' },
-        ]
+        header
     });
 
     const exportData = data.map((elem) => {
-        console.log(metric, elem);
-        return {
-            date: (new Date(elem[0])).toISOString(),
-            timestamp: elem[0],
-            value: elem[1],
-        };
+        if (elem instanceof Array) {
+            return {
+                date: (new Date(elem[0])).toISOString(),
+                timestamp: elem[0],
+                value: elem[1],
+            };
+        } else {
+            return elem;
+        }
     })
 
     csvWriter
