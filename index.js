@@ -39,20 +39,25 @@ async function start() {
 
 async function getMetric(metric) {
     const url = `https://analytics.services.netlify.com/v1/${siteId}/${metric}?from=${startDate.getTime().toFixed()}&to=${endDate.getTime()}&timezone=${timezone}&resolution=day`;
-    var res = await fetch(url, {
-        "credentials": "include",
-        "headers": {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            "Pragma": "no-cache",
-            "Cache-Control": "no-cache"
-        },
-        "method": "GET",
-        "mode": "cors"
-    });
-
-    const response = await res.json();
-    writeToCSV(response.data, metric);
+    try {
+        var res = await fetch(url, {
+            "credentials": "include",
+            "headers": {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                "Pragma": "no-cache",
+                "Cache-Control": "no-cache"
+            },
+            "method": "GET",
+            "mode": "cors"
+        });
+    
+        const response = await res.json();
+        writeToCSV(response.data, metric);
+    } catch(e) {
+        console.error("Request failed". url);
+        console.error(e);
+    }
 }
 
 function writeToCSV(data, metric) {
