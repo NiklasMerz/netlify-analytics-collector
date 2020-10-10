@@ -19,7 +19,7 @@ jobs:
       with:
         name: exports
         path: '*.csv'
-  sheet-test:
+  sheet-upload:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -27,7 +27,7 @@ jobs:
       with:
         netlify-token: ${{ secrets.NETLIFY_TOKEN }}
         netlify-site-id: ${{ secrets.NETLIFY_SITE }}
-    - uses: canonical-web-and-design/csv-to-google-spreadsheet@master
+    - uses: niklasmerz/csv-to-google-spreadsheet@fixes
       with:
         csv_path: pageviews.csv
         spreadsheet_id: ${{ secrets.google_spreadsheet_id }}
