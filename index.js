@@ -5,19 +5,20 @@ const token =  process.env.NETLIFY_TOKEN || core.getInput('netlify-token', {requ
 const siteId =  process.env.NETLIFY_SITE_ID || core.getInput('netlify-site-id', {required: true});
 
 const startDate = new Date();
-startDate.setHours(0);
-startDate.setMinutes(0);
-startDate.setSeconds(0)
-startDate.setMilliseconds(0);
-
-// One month back
-startDate.setDate(-30);
+startDate.setUTCHours(0);
+startDate.setUTCMinutes(0);
+startDate.setUTCSeconds(0)
+startDate.setUTCMilliseconds(0);
 
 const endDate = new Date();
-endDate.setHours(23);
-endDate.setMinutes(59);
-endDate.setSeconds(59);
-endDate.setMilliseconds(999);
+endDate.setUTCHours(23);
+endDate.setUTCMinutes(59);
+endDate.setUTCSeconds(59);
+endDate.setUTCMilliseconds(999);
+
+const days = process.env.DAYS || core.getInput('days');
+startDate.setUTCDate(endDate.getDate() - days);
+
 
 let timezone = startDate.getTimezoneOffset() / 60 * -100;
 if (timezone >= 1000) {
@@ -33,6 +34,8 @@ if (timezone < 0) {
 
 
 async function start() {
+    console.log("Getting analytics from", startDate, "to", endDate);
+
     getMetric("pageviews");
     getMetric("visitors");
 }
