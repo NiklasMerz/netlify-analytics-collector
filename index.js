@@ -9,6 +9,10 @@ startDate.setHours(0);
 startDate.setMinutes(0);
 startDate.setSeconds(0)
 startDate.setMilliseconds(0);
+
+// One month back
+startDate.setDate(-30);
+
 const endDate = new Date();
 endDate.setHours(23);
 endDate.setMinutes(59);
