@@ -1,4 +1,4 @@
-name: Test run
+name: Test Sheet Upload
 
 on:
   schedule:
