@@ -13,7 +13,7 @@ inputs:
     default: '29'
     required: false
   disable-header:
-    description: 'Set to true for appending to CSV files and if no header is necessary'
+    description: 'Set to true for CSV files with no header line. Can be useful for appending.'
     default: 'false'
     required: false
 runs:
