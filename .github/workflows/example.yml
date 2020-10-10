@@ -27,6 +27,7 @@ jobs:
       with:
         netlify-token: ${{ secrets.NETLIFY_TOKEN }}
         netlify-site-id: ${{ secrets.NETLIFY_SITE }}
+        days: 1
     - uses: niklasmerz/csv-to-google-spreadsheet@fixes
       with:
         csv_path: pageviews.csv

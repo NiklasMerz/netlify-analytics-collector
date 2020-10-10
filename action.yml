@@ -8,6 +8,10 @@ inputs:
   netlify-token:
     description: 'Personal access token from your netlify account'
     required: true
+  days:
+    description: 'How many days back from today should be fetched. Netlify stores analytics for about 30 days.'
+    default: '29'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
