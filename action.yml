@@ -1,0 +1,13 @@
+name: 'Netlify Analytics Collector'
+description: 'Fetches netlify analytics and uploads it to artifacts.'
+author: 'NiklasMerz'
+inputs: 
+  netlify-site-id:
+    description: 'You can get the id for your netlify site by looking at the devtools'
+    required: true
+  netlify-token:
+    description: 'Personal access token from your netlify account'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

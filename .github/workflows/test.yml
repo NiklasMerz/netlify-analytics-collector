@@ -1,0 +1,16 @@
+name: Test run
+
+on:
+  schedule:
+    - cron:  '0 12 * * *'
+  workflow_dispatch:
+    
+
+jobs:
+  action-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ./.
+      with:
+        netlify-token: ${{ secrets.NETLIFY_TOKEN }}
+        netlify-site-id: ${{ secrets.NETLIFY_SITE }}
