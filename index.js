@@ -1,8 +1,10 @@
 const fetch = require('node-fetch');
 const core = require('@actions/core');
 
-const token = process.env.NETLIFY_TOKEN || core.getInput('netlify-token', { required: true });
-const siteId = process.env.NETLIFY_SITE_ID || core.getInput('netlify-site-id', { required: true });
+const token =  process.env.NETLIFY_TOKEN || core.getInput('netlify-token', {required: true});
+const siteId =  process.env.NETLIFY_SITE_ID || core.getInput('netlify-site-id', {required: true});
+const days = process.env.DAYS || core.getInput('days');
+const disableHeader = process.env.DISABLEHEADER === "true" || core.getInput('disable-header') === "true";
 
 const startDate = new Date();
 startDate.setUTCHours(0);
@@ -16,7 +18,6 @@ endDate.setUTCMinutes(59);
 endDate.setUTCSeconds(59);
 endDate.setUTCMilliseconds(999);
 
-const days = process.env.DAYS || core.getInput('days');
 startDate.setUTCDate(endDate.getDate() - days);
 
 
@@ -73,14 +74,22 @@ function writeToCSV(data, metric) {
     let header = [];
     try {
         if (data[0] instanceof Array) {
-            header = [
-                { id: 'date', title: 'date' },
-                { id: 'timestamp', title: 'timestamp' },
-                { id: 'value', title: 'count' },
-            ];
+            if (disableHeader) {
+                header = ['date', 'timestamp', 'value'];
+            } else {
+                header = [
+                    { id: 'date', title: 'date' },
+                    { id: 'timestamp', title: 'timestamp' },
+                    { id: 'value', title: 'count' },
+                ];
+            }
         } else {
             for (const key in data[0]) {
-                header.push({ id: key, title: key });
+                if (disableHeader) {
+                    header.push(key);
+                } else {
+                    header.push({ id: key, title: key });
+                }
             }
         }
     } catch (e) {

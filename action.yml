@@ -12,6 +12,10 @@ inputs:
     description: 'How many days back from today should be fetched. Netlify stores analytics for about 30 days.'
     default: '29'
     required: false
+  disable-header:
+    description: 'Set to true for CSV files with no header line. Can be useful for appending.'
+    default: 'false'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
