@@ -48,7 +48,32 @@ async function start() {
         "mode": "cors"
     });
 
-    console.log(await res.json());
+    const response = await res.json();
+    writeToCSV(response.data, "pageviews");
+}
+
+function writeToCSV(data, metric) {
+    const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+    const csvWriter = createCsvWriter({
+        path: metric + '.csv',
+        header: [
+            { id: 'date', title: 'Date' },
+            { id: 'timestamp', title: 'Timestamp' },
+            { id: 'value', title: 'Count' },
+        ]
+    });
+
+    const exportData = data.map((elem) => {
+        return {
+            date: (new Date(elem[0])).toISOString(),
+            timestamp: elem[0],
+            value: elem[1],
+        };
+    })
+
+    csvWriter
+        .writeRecords(exportData)
+        .then(() => console.log(`The CSV file for ${metric} was written successfully`));
 }
 
 start();
