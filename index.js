@@ -32,8 +32,6 @@ if (timezone < 0) {
 }
 
 
-console.log(url);
-
 async function start() {
     getMetric("pageviews");
     getMetric("visitors");
@@ -69,6 +67,7 @@ function writeToCSV(data, metric) {
     });
 
     const exportData = data.map((elem) => {
+        console.log(metric, elem);
         return {
             date: (new Date(elem[0])).toISOString(),
             timestamp: elem[0],
