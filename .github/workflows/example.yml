@@ -1,4 +1,4 @@
-name: Example run
+name: Test run
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
     
 
 jobs:
-  export-run:
+  action-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
