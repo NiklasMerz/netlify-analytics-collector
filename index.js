@@ -31,11 +31,16 @@ if (timezone < 0) {
     timezone = timezone.replace("+", "-");
 }
 
-const url = `https://analytics.services.netlify.com/v1/${siteId}/pageviews?from=${startDate.getTime().toFixed()}&to=${endDate.getTime()}&timezone=${timezone}&resolution=day`
 
 console.log(url);
 
 async function start() {
+    getMetric("pageviews");
+    getMetric("visitors");
+}
+
+async function getMetric(metric) {
+    const url = `https://analytics.services.netlify.com/v1/${siteId}/${metric}?from=${startDate.getTime().toFixed()}&to=${endDate.getTime()}&timezone=${timezone}&resolution=day`;
     var res = await fetch(url, {
         "credentials": "include",
         "headers": {
@@ -49,7 +54,7 @@ async function start() {
     });
 
     const response = await res.json();
-    writeToCSV(response.data, "pageviews");
+    writeToCSV(response.data, metric);
 }
 
 function writeToCSV(data, metric) {
