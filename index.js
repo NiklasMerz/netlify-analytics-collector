@@ -18,7 +18,9 @@ endDate.setUTCMinutes(59);
 endDate.setUTCSeconds(59);
 endDate.setUTCMilliseconds(999);
 
-startDate.setDate(endDate.getDate() - days);
+if (days > 0) {
+    startDate.setDate(endDate.getDate() - days);
+}
 
 
 let timezone = startDate.getTimezoneOffset() / 60 * -100;
