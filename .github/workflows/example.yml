@@ -27,13 +27,21 @@ jobs:
       with:
         netlify-token: ${{ secrets.NETLIFY_TOKEN }}
         netlify-site-id: ${{ secrets.NETLIFY_SITE }}
-        days: 0
+        days: 1
         disable-header: true
     - uses: niklasmerz/csv-to-google-spreadsheet@fixes
       with:
         csv_path: pageviews.csv
         spreadsheet_id: ${{ secrets.google_spreadsheet_id }}
         worksheet: 0
+        append_content: true
+        google_service_account_email: ${{ secrets.google_service_account_email }}
+        google_service_account_private_key: ${{ secrets.google_service_account_private_key }}
+    - uses: niklasmerz/csv-to-google-spreadsheet@fixes
+      with:
+        csv_path: visitors.csv
+        spreadsheet_id: ${{ secrets.google_spreadsheet_id }}
+        worksheet: 1
         append_content: true
         google_service_account_email: ${{ secrets.google_service_account_email }}
         google_service_account_private_key: ${{ secrets.google_service_account_private_key }}
