@@ -30,7 +30,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ steps.current-time.outputs.time }}
-        release_name: Month ${{ steps.current-time.outputs.time }}
+        release_name: Month ${{ steps.current-time.outputs.formattedTime }}
         draft: false
         prerelease: false
     - name: Upload Release Asset
@@ -41,7 +41,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_path: ./monthly-summary-$.zip
-        asset_name: monthly-summary-${{ steps.current-time.outputs.time }}.zip
+        asset_name: monthly-summary-${{ steps.current-time.outputs.formattedTime }}.zip
         asset_content_type: application/zip
     - name: Report Status
       if: always()
