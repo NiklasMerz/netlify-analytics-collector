@@ -15,6 +15,7 @@ jobs:
       with:
         netlify-token: ${{ secrets.NETLIFY_TOKEN }}
         netlify-site-id: ${{ secrets.NETLIFY_SITE }}
+    - name: Zip archives
       run: |
           zip --junk-paths monthly-summary *.csv
     - name: Get current time
