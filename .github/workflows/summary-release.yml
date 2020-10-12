@@ -43,11 +43,3 @@ jobs:
         asset_path: ./monthly-summary.zip
         asset_name: monthly-summary-${{ steps.current-time.outputs.formattedTime }}.zip
         asset_content_type: application/zip
-    - name: Report Status
-      if: always()
-      uses: ravsamhq/notify-slack-action@master
-      with:
-        status: ${{ job.status }}
-        notify_when: 'failure'
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
