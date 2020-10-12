@@ -45,3 +45,11 @@ jobs:
         append_content: true
         google_service_account_email: ${{ secrets.google_service_account_email }}
         google_service_account_private_key: ${{ secrets.google_service_account_private_key }}
+    - uses: niklasmerz/csv-to-google-spreadsheet@fixes
+      with:
+        csv_path: bandwith.csv
+        spreadsheet_id: ${{ secrets.google_spreadsheet_id }}
+        worksheet: 2
+        append_content: true
+        google_service_account_email: ${{ secrets.google_service_account_email }}
+        google_service_account_private_key: ${{ secrets.google_service_account_private_key }}
