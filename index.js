@@ -61,6 +61,7 @@ async function getMetric(metric) {
         });
 
         const response = await res.json();
+        console.log("Got entries:", response.data.length);
         writeToCSV(response.data, metric);
     } catch (e) {
         console.error("Request failed".url);
