@@ -65,6 +65,11 @@ async function getMetric(metric) {
 
         const response = await res.json();
         console.log("Got entries:", response.data.length);
+
+        if (response.data.length === 0) {
+            core.setFailed("No entries");
+        }
+
         writeToCSV(response.data, metric);
     } catch (e) {
         console.error("Request failed".url);
