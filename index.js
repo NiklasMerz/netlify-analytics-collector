@@ -37,6 +37,7 @@ if (timezone < 0) {
 
 
 async function start() {
+    console.log("Current time:", new Date());
     console.log("Getting analytics from", startDate, "to", endDate);
 
     getMetric("pageviews");
