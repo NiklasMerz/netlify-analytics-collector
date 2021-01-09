@@ -18,10 +18,14 @@ endDate.setUTCMinutes(59);
 endDate.setUTCSeconds(59);
 endDate.setUTCMilliseconds(999);
 
+if (days < 0) {
+    startDate.setDate(startDate.getDate() - (days * -1));
+    endDate.setDate(endDate.getDate() - (days * -1));
+}
+
 if (days > 0) {
     startDate.setDate(endDate.getDate() - days);
 }
-
 
 let timezone = startDate.getTimezoneOffset() / 60 * -100;
 if (timezone >= 1000) {

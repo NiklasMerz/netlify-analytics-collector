@@ -27,7 +27,7 @@ jobs:
       with:
         netlify-token: ${{ secrets.NETLIFY_TOKEN }}
         netlify-site-id: ${{ secrets.NETLIFY_SITE }}
-        days: 0
+        days: -1
         disable-header: true
     - uses: niklasmerz/csv-to-google-spreadsheet@master
       with:
