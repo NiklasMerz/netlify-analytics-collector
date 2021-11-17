@@ -1,6 +1,6 @@
 {
   "name": "netlify-analytics-collector",
-  "version": "1.2.0",
+  "version": "1.2.0-api-v2-rc.1",
   "description": "A simple NodeJs application which saves netlify analytics to a CSV file",
   "main": "index.js",
   "directories": {
