@@ -53,7 +53,7 @@ async function start() {
 }
 
 async function getMetric(metric) {
-    const url = `https://analytics.services.netlify.com/v1/${siteId}/${metric}?from=${startDate.getTime().toFixed()}&to=${endDate.getTime()}&timezone=${timezone}&resolution=day`;
+    const url = `https://analytics.services.netlify.com/v2/${siteId}/${metric}?from=${startDate.getTime().toFixed()}&to=${endDate.getTime()}&timezone=${timezone}&resolution=day`;
     try {
         var res = await fetch(url, {
             "credentials": "include",
